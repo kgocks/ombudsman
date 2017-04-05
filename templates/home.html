@@ -1,0 +1,147 @@
+{% load crispy_forms_tags %}
+{% load static %}
+
+<html>
+<head>
+    <title>Ombudsman by User Camp</title>
+    <meta name="description" content="Ombudsman is a Windows Store Analytics API client for Zapier">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/typenugget.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Shade|Arbutus+Slab|Montserrat"
+        rel="stylesheet">
+
+    <link rel="apple-touch-icon" sizes="57x57"          href="{% static 'favicon/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60"          href="{% static 'favicon/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72"          href="{% static 'favicon/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76"          href="{% static 'favicon/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114"        href="{% static 'favicon/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120"        href="{% static 'favicon/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144"        href="{% static 'favicon/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152"        href="{% static 'favicon/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180"        href="{% static 'favicon/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192"   href="{% static 'favicon/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32"     href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96"     href="{% static 'favicon/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16"     href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest"                                href="{% static 'favicon/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage"                content="{% static 'favicon/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+
+    <style>
+        body {
+            -webkit-font-smoothing: antialiased;
+            /*background-color: #efefef;*/
+        }
+        .content {
+            max-width: 56em;
+            margin: auto;
+            padding: 2.2rem 4.28rem 4.28rem
+        }
+        #brand {
+            word-wrap: break-word;
+            font-family: "Bungee Shade";
+            font-size: 72pt;
+        }
+        #integrations {
+            display: block;
+            width: 1075px;
+            margin: 0 auto;
+        }
+        label {
+            color: #091254;
+        }
+        p, li, label, button {
+            font-size: 16pt;
+        }
+        .asteriskField {
+            display: none;
+        }
+        .control-group input {
+            width: 300px;
+        }
+        #div_id_captcha {
+            margin-top: 15px;
+            margin-bottom: 10px;
+        }
+    </style>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+</head>
+<body>
+    <div class="content">
+    <h1 id="brand">Ombudsman</h1>
+    <h2>Unleash your Windows Dev Center data with Zapier</h2>
+    <h3>Made for you by <a href="http://user.camp">User Camp</a></h3>
+    <p>
+        Ombudsman is a Zapier integration that sends triggers whenever new data is available in your Windows Dev Center.
+    </p>
+    </div>
+    <img id="integrations" src="{% static 'img/integrations@2x.png' %}" />
+    <div class="content">
+    <p>
+        It lets you do cool stuff like send your daily IAP counts to Geckoboard, get a Slack notification whenever you
+        get a new review, or track your acquisition data in Google Drive.
+    </p>
+    <p>
+        It's free to use, and it's <a href="https://github.com/usercamp/ombudsman">open source</a> if you want to roll your own deployment.
+    </p>
+    <h2>1. Get your (free) User Camp API key</h2>
+
+    {% if not registered %}
+        <p>Enter your details below and you'll receive the User Camp API key you need to proceed by email. <strong>Do this first.</strong></p>
+        {% crispy form %}
+    {% else %}
+        <p>Great - check your email for your User Camp API key, and carry on. (Or <a href="{% url 'home' %}">try again?</a>)</p>
+    {% endif %}
+
+    <h2>2. Set up your Azure AD</h2>
+    <p>
+        This is the step that gives you the equivalent of an API key for the Windows Store analytics API. It's annoying,
+        but you only have to do it once.
+    </p>
+    <p>
+        Your Windows Developer account needs an Azure Active Directory (Azure AD) to proceed. It's not as bad as it sounds. Assuming you don't have one already: <a href="https://docs.microsoft.com/en-us/windows/uwp/publish/manage-account-users#create-a-brand-new-azure-ad-to-associate-with-your-dev-center-account">Read how to create a new one</a>.
+    </p>
+    <p>
+        Then, <a href="https://docs.microsoft.com/en-us/windows/uwp/monetize/access-analytics-data-using-windows-store-services#prerequisites">create a new Azure AD application</a>.
+    </p>
+    <p>
+        Make sure you note down the following items. You'll need these for Zapier (as well as your User Camp API key).
+    </p>
+    <ul>
+        <li>Azure AD Tenant ID</li>
+        <li>Azure AD Client ID</li>
+        <li>Azure AD Application Key</li>
+        <li>Azure AD App ID URI</li>
+    </ul>
+    <h2>3. Head to <a href="https://zapier.com/developer/invite/61758/265609f1152dfeb34d45e9de367d19bb/">Zapier</a></h2>
+    <p>
+        Click here: <a href="https://zapier.com/developer/invite/61758/265609f1152dfeb34d45e9de367d19bb/">Join User Camp's private Ombudsman Zapier app</a>.
+    </p>
+    <p>
+        Make a new Zap and set Ombudsman as your trigger. You'll be asked to provide your User Camp API key, and all of
+        your Azure AD information, when adding the Ombudsman app.
+    </p>
+    <p>
+        Make sure you provide your Windows Store App ID in the trigger. This is your app's unique identifier in URLs, like
+        <code>9nblggh18846</code>.
+    </p>
+    <h3>Check our source</h3>
+    <p>
+        <a href="https://github.com/usercamp/ombudsman">This project is open-source</a> (MIT). Issues and pull requests appreciated!
+    </p>
+
+    <hr />
+    <p id="footer">
+        &copy;2017 <a href="http://user.camp">User Camp</a> &bull;
+        <a href="mailto:hello@user.camp">hello@user.camp</a> &bull;
+        <a href="https://twitter.com/user_camp">Twitter</a> &bull;
+        <a href="https://medium.com/user-camp">Blog</a> &bull;
+        <a href="https://github.com/usercamp">Source</a>
+        <br />
+        Made with &#9829; for Windows 10
+    </p>
+
+</div>
+</body>
+</html>

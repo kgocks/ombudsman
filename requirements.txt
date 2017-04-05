@@ -1,0 +1,11 @@
+Django==1.10.6
+gunicorn
+dj-database_url
+dj-static
+psycopg2==2.5.1
+django-debug-toolbar
+rollbar
+requests
+static
+django-crispy-forms
+django-recaptcha
